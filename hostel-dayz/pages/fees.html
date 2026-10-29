@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hostel-Dayz — pay hostel and mess fees online.">
+  <title>Hostel-Dayz — Fee Payments</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><img src="../assets/logo.svg" alt="Hostel-Dayz logo"> Hostel-Dayz</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Dashboard</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="leave.html">Leave</a></li>
+        <li><a href="announcements.html">Announcements</a></li>
+        <li><a href="complaints.html">Complaints</a></li>
+        <li><a href="fees.html">Fees</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1 class="page-title">Fee Payments</h1>
+    <p class="page-sub">Pay your hostel and mess fees online. You get an instant digital receipt for every payment.</p>
+
+    <div class="two-col">
+      <section class="card" aria-labelledby="payFormTitle">
+        <h2 id="payFormTitle">Make a payment</h2>
+        <form id="payForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="pName">Full name *</label>
+              <input type="text" id="pName" placeholder="e.g. Aarav Sharma">
+              <div class="field-error" id="ePName"></div>
+            </div>
+            <div class="form-group">
+              <label for="pRoom">Room no. *</label>
+              <input type="text" id="pRoom" placeholder="e.g. A-101">
+              <div class="field-error" id="ePRoom"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pType">Fee type *</label>
+            <select id="pType">
+              <option value="Hostel Fee">Hostel Fee — &#8377;24,000 / semester</option>
+              <option value="Mess Fee">Mess Fee — &#8377;18,000 / semester</option>
+              <option value="Other">Other (enter amount)</option>
+            </select>
+          </div>
+          <div class="form-group" id="customAmtWrap" hidden>
+            <label for="pCustom">Amount (&#8377;) *</label>
+            <input type="number" id="pCustom" min="1" max="1000000" placeholder="Enter amount">
+            <div class="field-error" id="ePCustom"></div>
+          </div>
+          <div class="order-summary" aria-live="polite">
+            <div class="row"><span>Fee type</span><strong id="sumType">Hostel Fee</strong></div>
+            <div class="row total"><span>Amount payable</span><span id="sumAmount">&#8377;24,000</span></div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Proceed to Pay</button>
+        </form>
+      </section>
+
+      <section aria-labelledby="payHistTitle">
+        <h2 id="payHistTitle">Payment history (<span id="payCount">0</span>)</h2>
+        <div class="table-wrap">
+          <table class="responsive" id="payTable">
+            <thead>
+              <tr><th>Transaction</th><th>Student</th><th>Fee</th><th>Method</th></tr>
+            </thead>
+            <tbody id="payBody"></tbody>
+          </table>
+        </div>
+        <div class="empty" id="payEmpty" hidden>No payments yet. Make your first payment using the form.</div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Payment gateway modal -->
+  <div class="modal-backdrop" id="payModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="test-banner">&#9888; TEST MODE — this is a demo checkout, no real money is moved.</div>
+      <div class="modal-head">
+        <h2 id="modalTitle">Secure Checkout</h2>
+        <button class="modal-close" id="modalClose" aria-label="Close checkout">&times;</button>
+      </div>
+      <div class="modal-body">
+        <!-- step 1: payment form -->
+        <div id="payStepForm">
+          <div class="order-summary">
+            <div class="row"><span>Paying for</span><strong id="mType">Hostel Fee</strong></div>
+            <div class="row"><span>Student</span><strong id="mStudent">—</strong></div>
+            <div class="row total"><span>Amount</span><span id="mAmount">&#8377;0</span></div>
+          </div>
+          <div class="pay-tabs" role="tablist" aria-label="Payment method">
+            <button class="pay-tab active" id="tabCard" role="tab" aria-selected="true">&#128179; Card</button>
+            <button class="pay-tab" id="tabUpi" role="tab" aria-selected="false">&#128241; UPI</button>
+          </div>
+
+          <div id="cardPane">
+            <div class="form-group">
+              <label for="ccNum">Card number *</label>
+              <input type="text" id="ccNum" inputmode="numeric" maxlength="19" placeholder="4111 1111 1111 1111" autocomplete="cc-number">
+              <div class="field-error" id="eCcNum"></div>
+            </div>
+            <div class="form-group">
+              <label for="ccName">Name on card *</label>
+              <input type="text" id="ccName" placeholder="AARAV SHARMA" autocomplete="cc-name">
+              <div class="field-error" id="eCcName"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="ccExp">Expiry (MM/YY) *</label>
+                <input type="text" id="ccExp" maxlength="5" placeholder="12/28" autocomplete="cc-exp">
+                <div class="field-error" id="eCcExp"></div>
+              </div>
+              <div class="form-group">
+                <label for="ccCvv">CVV *</label>
+                <input type="password" id="ccCvv" maxlength="4" inputmode="numeric" placeholder="123" autocomplete="cc-csc">
+                <div class="field-error" id="eCcCvv"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="upiPane" hidden>
+            <div class="form-group">
+              <label for="upiId">UPI ID *</label>
+              <input type="text" id="upiId" placeholder="yourname@okhdfcbank">
+              <div class="field-error" id="eUpiId"></div>
+            </div>
+            <p class="muted">A collect request will be sent to your UPI app in the live integration.</p>
+          </div>
+
+          <button class="btn btn-success" id="payNowBtn" style="width:100%;">Pay <span id="payNowAmt">&#8377;0</span></button>
+          <p class="muted mt" style="font-size:0.82rem;text-align:center;">256-bit encrypted &middot; PCI-DSS compliant (live mode)</p>
+        </div>
+
+        <!-- step 2: receipt -->
+        <div id="payStepReceipt" hidden>
+          <div class="receipt">
+            <div class="check">&#10004;</div>
+            <h2>Payment Successful</h2>
+            <p class="muted">Your receipt is saved in Payment History.</p>
+            <table>
+              <tr><td>Transaction ID</td><td><strong id="rTxn">—</strong></td></tr>
+              <tr><td>Amount</td><td><strong id="rAmt">—</strong></td></tr>
+              <tr><td>Fee type</td><td id="rType">—</td></tr>
+              <tr><td>Student</td><td id="rStudent">—</td></tr>
+              <tr><td>Method</td><td id="rMethod">—</td></tr>
+              <tr><td>Date</td><td id="rDate">—</td></tr>
+            </table>
+            <button class="btn btn-primary" id="receiptDone" style="width:100%;">Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>Hostel-Dayz &mdash; making hostel life simpler.</span>
+      <span>Demo build &mdash; data is stored in your browser (localStorage).</span>
+    </div>
+  </footer>
+
+  <script src="../js/app.js"></script>
+  <script src="../js/fees.js"></script>
+</body>
+</html>

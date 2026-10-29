@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hostel-Dayz — digital leave applications and warden approval.">
+  <title>Hostel-Dayz — Leave Applications</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><img src="../assets/logo.svg" alt="Hostel-Dayz logo"> Hostel-Dayz</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Dashboard</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="leave.html">Leave</a></li>
+        <li><a href="announcements.html">Announcements</a></li>
+        <li><a href="complaints.html">Complaints</a></li>
+        <li><a href="fees.html">Fees</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1 class="page-title">Leave Applications</h1>
+    <p class="page-sub">Apply for leave digitally. The warden reviews every request — no more paper forms.</p>
+
+    <div class="toolbar" role="tablist" aria-label="Leave views">
+      <button class="btn btn-ghost filter-btn active" id="tabApply" role="tab" aria-selected="true">&#128100; Apply for Leave</button>
+      <button class="btn btn-ghost filter-btn" id="tabWarden" role="tab" aria-selected="false">&#128188; Warden View</button>
+    </div>
+
+    <!-- Student apply view -->
+    <section id="viewApply" aria-labelledby="tabApply">
+      <div class="card">
+        <h2>New leave application</h2>
+        <form id="leaveForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="lName">Full name *</label>
+              <input type="text" id="lName" placeholder="e.g. Aarav Sharma">
+              <div class="field-error" id="eLName"></div>
+            </div>
+            <div class="form-group">
+              <label for="lRoom">Room no. *</label>
+              <input type="text" id="lRoom" placeholder="e.g. A-101">
+              <div class="field-error" id="eLRoom"></div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="lFrom">From date *</label>
+              <input type="date" id="lFrom">
+              <div class="field-error" id="eLFrom"></div>
+            </div>
+            <div class="form-group">
+              <label for="lTo">To date *</label>
+              <input type="date" id="lTo">
+              <div class="field-error" id="eLTo"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="lReason">Reason *</label>
+            <textarea id="lReason" placeholder="Why do you need leave?"></textarea>
+            <div class="field-error" id="eLReason"></div>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit Application</button>
+        </form>
+      </div>
+
+      <h2>Your recent applications</h2>
+      <div class="record-list" id="myLeaves"></div>
+    </section>
+
+    <!-- Warden view -->
+    <section id="viewWarden" hidden aria-labelledby="tabWarden">
+      <div class="card">
+        <h2>All leave requests</h2>
+        <p class="muted">Review each request and approve or reject it. Pending requests need your action.</p>
+        <div class="toolbar">
+          <button class="btn btn-ghost btn-sm filter-btn active" data-lfilter="ALL">All</button>
+          <button class="btn btn-ghost btn-sm filter-btn" data-lfilter="PENDING">Pending</button>
+          <button class="btn btn-ghost btn-sm filter-btn" data-lfilter="APPROVED">Approved</button>
+          <button class="btn btn-ghost btn-sm filter-btn" data-lfilter="REJECTED">Rejected</button>
+        </div>
+        <div class="record-list" id="allLeaves"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>Hostel-Dayz &mdash; making hostel life simpler.</span>
+      <span>Demo build &mdash; data is stored in your browser (localStorage).</span>
+    </div>
+  </footer>
+
+  <script src="../js/app.js"></script>
+  <script src="../js/leave.js"></script>
+</body>
+</html>

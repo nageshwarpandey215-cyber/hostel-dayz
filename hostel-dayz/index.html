@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hostel-Dayz — hostel management dashboard for students and wardens.">
+  <title>Hostel-Dayz — Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="brand" href="index.html"><img src="assets/logo.svg" alt="Hostel-Dayz logo"> Hostel-Dayz</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Dashboard</a></li>
+        <li><a href="pages/register.html">Register</a></li>
+        <li><a href="pages/leave.html">Leave</a></li>
+        <li><a href="pages/announcements.html">Announcements</a></li>
+        <li><a href="pages/complaints.html">Complaints</a></li>
+        <li><a href="pages/fees.html">Fees</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Welcome to Hostel-Dayz</h1>
+      <p>One place for everything in hostel life — register as a resident, apply for leave, raise complaints, read warden announcements and pay your fees online.</p>
+      <a class="btn btn-primary" href="pages/register.html" style="background:#fff;color:#1e3a8a;">Register as Student</a>
+      <a class="btn" href="pages/fees.html" style="border:1px solid #fff;color:#fff;margin-left:8px;">Pay Fees</a>
+    </section>
+
+    <h2>At a glance</h2>
+    <div class="grid grid-4" id="stats" aria-live="polite">
+      <div class="stat-card"><div class="num" id="statStudents">0</div><div class="label">Students registered</div></div>
+      <div class="stat-card" style="border-left-color:#f59e0b;"><div class="num" id="statLeaves">0</div><div class="label">Leave requests pending</div></div>
+      <div class="stat-card" style="border-left-color:#b91c1c;"><div class="num" id="statComplaints">0</div><div class="label">Open complaints</div></div>
+      <div class="stat-card" style="border-left-color:#15803d;"><div class="num" id="statAnnouncements">0</div><div class="label">Announcements</div></div>
+    </div>
+
+    <h2 class="mt">Quick links</h2>
+    <div class="grid grid-2">
+      <a class="card link-card" href="pages/leave.html"><h3>&#128203; Leave Applications</h3><p>Apply for leave digitally and track approval status from the warden.</p></a>
+      <a class="card link-card" href="pages/complaints.html"><h3>&#128295; Complaint Tracking</h3><p>Raise mess, room, electricity or water complaints and follow them to resolution.</p></a>
+      <a class="card link-card" href="pages/announcements.html"><h3>&#128226; Announcements</h3><p>Official notices from the warden's office — vacations, mess menus, maintenance.</p></a>
+      <a class="card link-card" href="pages/fees.html"><h3>&#128179; Fee Payments</h3><p>Pay hostel and mess fees online with an instant digital receipt.</p></a>
+    </div>
+
+    <h2 class="mt">Latest announcements</h2>
+    <div class="record-list" id="recentAnnouncements"></div>
+    <p class="mt"><a class="btn btn-ghost" href="pages/announcements.html">View all announcements</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>Hostel-Dayz &mdash; making hostel life simpler.</span>
+      <span>Demo build &mdash; data is stored in your browser (localStorage).</span>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var students = DB.get("students", []);
+      var leaves = DB.get("leaves", []).filter(function (l) { return l.status === "PENDING"; });
+      var complaints = DB.get("complaints", []).filter(function (c) { return c.status !== "Resolved"; });
+      var announcements = DB.get("announcements", []);
+      document.getElementById("statStudents").textContent = students.length;
+      document.getElementById("statLeaves").textContent = leaves.length;
+      document.getElementById("statComplaints").textContent = complaints.length;
+      document.getElementById("statAnnouncements").textContent = announcements.length;
+
+      var box = document.getElementById("recentAnnouncements");
+      var recent = announcements.slice().sort(function (a, b) { return b.createdAt - a.createdAt; }).slice(0, 3);
+      if (!recent.length) {
+        box.innerHTML = '<div class="empty">No announcements yet.</div>';
+      } else {
+        box.innerHTML = recent.map(function (a) {
+          return '<article class="record"><h3>' + esc(a.title) + '</h3>' +
+            '<div class="meta">' + fmtDateTime(a.createdAt) + '</div>' +
+            '<p>' + esc(a.message.length > 180 ? a.message.slice(0, 180) + "..." : a.message) + '</p></article>';
+        }).join("");
+      }
+    });
+  </script>
+</body>
+</html>

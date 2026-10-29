@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hostel-Dayz — official announcements board.">
+  <title>Hostel-Dayz — Announcements</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><img src="../assets/logo.svg" alt="Hostel-Dayz logo"> Hostel-Dayz</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Dashboard</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="leave.html">Leave</a></li>
+        <li><a href="announcements.html">Announcements</a></li>
+        <li><a href="complaints.html">Complaints</a></li>
+        <li><a href="fees.html">Fees</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1 class="page-title">Announcements</h1>
+    <p class="page-sub">Official notices from the warden's office. Newest first.</p>
+
+    <div class="two-col">
+      <section class="card" aria-labelledby="annFormTitle">
+        <h2 id="annFormTitle">Post an announcement</h2>
+        <p class="muted">For warden / admin use.</p>
+        <form id="annForm" novalidate>
+          <div class="form-group">
+            <label for="aTitle">Title *</label>
+            <input type="text" id="aTitle" maxlength="120" placeholder="e.g. Water supply shutdown on Friday">
+            <div class="field-error" id="eATitle"></div>
+          </div>
+          <div class="form-group">
+            <label for="aMsg">Message *</label>
+            <textarea id="aMsg" placeholder="Write the full announcement..."></textarea>
+            <div class="field-error" id="eAMsg"></div>
+          </div>
+          <button type="submit" class="btn btn-primary">Publish</button>
+        </form>
+      </section>
+
+      <section aria-labelledby="annListTitle">
+        <h2 id="annListTitle">Notice board (<span id="annCount">0</span>)</h2>
+        <div class="record-list" id="annList"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>Hostel-Dayz &mdash; making hostel life simpler.</span>
+      <span>Demo build &mdash; data is stored in your browser (localStorage).</span>
+    </div>
+  </footer>
+
+  <script src="../js/app.js"></script>
+  <script src="../js/announcements.js"></script>
+</body>
+</html>

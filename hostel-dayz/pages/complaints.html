@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hostel-Dayz — raise and track hostel complaints.">
+  <title>Hostel-Dayz — Complaint Tracking</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="brand" href="../index.html"><img src="../assets/logo.svg" alt="Hostel-Dayz logo"> Hostel-Dayz</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Dashboard</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="leave.html">Leave</a></li>
+        <li><a href="announcements.html">Announcements</a></li>
+        <li><a href="complaints.html">Complaints</a></li>
+        <li><a href="fees.html">Fees</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1 class="page-title">Complaint Tracking</h1>
+    <p class="page-sub">Raise a complaint and follow it from Open to Resolved. Every complaint gets a tracking ID.</p>
+
+    <div class="two-col">
+      <section class="card" aria-labelledby="cmpFormTitle">
+        <h2 id="cmpFormTitle">Raise a complaint</h2>
+        <form id="cmpForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cName">Full name *</label>
+              <input type="text" id="cName" placeholder="e.g. Diya Verma">
+              <div class="field-error" id="eCName"></div>
+            </div>
+            <div class="form-group">
+              <label for="cRoom">Room no. *</label>
+              <input type="text" id="cRoom" placeholder="e.g. B-204">
+              <div class="field-error" id="eCRoom"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cCat">Category *</label>
+            <select id="cCat">
+              <option value="">-- Select category --</option>
+              <option>Mess</option>
+              <option>Room</option>
+              <option>Electricity</option>
+              <option>Water</option>
+              <option>Other</option>
+            </select>
+            <div class="field-error" id="eCCat"></div>
+          </div>
+          <div class="form-group">
+            <label for="cDesc">Description *</label>
+            <textarea id="cDesc" placeholder="Describe the issue in detail..."></textarea>
+            <div class="field-error" id="eCDesc"></div>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit Complaint</button>
+        </form>
+      </section>
+
+      <section aria-labelledby="cmpListTitle">
+        <h2 id="cmpListTitle">All complaints (<span id="cmpCount">0</span>)</h2>
+        <div class="toolbar">
+          <button class="btn btn-ghost btn-sm filter-btn active" data-cfilter="ALL">All</button>
+          <button class="btn btn-ghost btn-sm filter-btn" data-cfilter="Open">Open</button>
+          <button class="btn btn-ghost btn-sm filter-btn" data-cfilter="In Progress">In Progress</button>
+          <button class="btn btn-ghost btn-sm filter-btn" data-cfilter="Resolved">Resolved</button>
+        </div>
+        <div class="record-list" id="cmpList"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>Hostel-Dayz &mdash; making hostel life simpler.</span>
+      <span>Demo build &mdash; data is stored in your browser (localStorage).</span>
+    </div>
+  </footer>
+
+  <script src="../js/app.js"></script>
+  <script src="../js/complaints.js"></script>
+</body>
+</html>
