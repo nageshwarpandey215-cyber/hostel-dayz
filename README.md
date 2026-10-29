@@ -2,8 +2,7 @@
 
 A responsive hostel management web app for students and the warden/admin — built with pure **HTML, CSS and JavaScript**. No build tools, no frameworks, no backend: all data persists in the browser via **localStorage** and the app is seeded with realistic demo records on first load.
 
-## Folder structure — alag-alag folder, samajhne me aasan
-
+## Folder structure — Separate folder to understand easily
 ```
 hostel-dayz/
 ├── index.html              # Dashboard (home page — GitHub Pages isi ko kholta hai)
@@ -27,8 +26,7 @@ hostel-dayz/
 └── README.md               # Ye file
 ```
 
-**Samajhne ka tareeka:** pehle `index.html` kholo, phir `pages/` me jis page ko samajhna hai uska HTML dekho, aur usi naam ki JS file `js/` me dekho. Design badalna ho to sirf `css/style.css` me badlo — saare pages ek saath badal jayenge.
-
+I made this project because in hostels, work like registration, leave applications and complaints is mostly done on paper. I wanted to make it simple and digital, so that students can do all this from one place.
 
 ## Features
 
